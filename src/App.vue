@@ -1,30 +1,52 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <Header />
+  <main class="d-flex main_window">
+    <LeftAdv />
+    <router-view />
+    <RightAdv />
+  </main>
+  <Footer />
 </template>
 
+<script>
+import Header from "@/components/Header.vue";
+import LeftAdv from "@/components/LeftAdv.vue";
+import RightAdv from "@/components/RightAdv.vue";
+import Footer from "@/components/Footer.vue";
+
+export default {
+  name: "App",
+  components: {
+    Header,
+    LeftAdv,
+    RightAdv,
+    Footer,
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.main_window {
+	list-style: none;
+	text-decoration: none;
+	font-family: sans-serif;
+	margin: 0 auto;
+  max-width: 1420px;
+  padding-bottom: 50px;
+ 
 }
 
-#nav {
-  padding: 30px;
+a {
+	text-decoration: none;
+	color: black;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+html{
+  height: 100%;
+  }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+body {
+  position: relative;
+  min-height: 100%;
 }
 </style>
