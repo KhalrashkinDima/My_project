@@ -9,7 +9,7 @@ import MyInput from "@/components/ui/MyInput.vue";
 import GenderChoose from "@/components/ui/GenderChoose.vue";
 import ChooseFromMany from "@/components/ui/ChooseFromMany.vue";
 import axios from 'axios';
-
+import SuperCounter from "@/components/ui/SuperCounter.vue";
 
 
 const app = createApp(App);
@@ -19,6 +19,7 @@ app.component('ModalProfile', ModalProfile)
 app.component('MyInput', MyInput)
 app.component('GenderChoose', GenderChoose)
 app.component('ChooseFromMany', ChooseFromMany)
+app.component('SuperCounter', SuperCounter)
 
 app.config.globalProperties.axios=axios
 

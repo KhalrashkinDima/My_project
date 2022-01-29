@@ -11,7 +11,7 @@
         </span>
         <div>
           Оценить новость
-          <button @click="postById.count" class="rate_button">
+          <button @click="postById.count--" class="rate_button">
             <img src="@/components/img/dislike.png" class="rate_image" />
           </button>
           {{ postById.count }}
@@ -31,11 +31,24 @@ export default {
       show: false,
     };
   },
-  computed: {
-    postById() {
-      return this.$store.getters.GETPOSTBYID(this.$route.params.id);
+/*   computed: {
+    CreateNumber() {
+      const ID = this.$route.params.id ;
+      return ID;
     },
-  },
+    postById() {
+      console.log(this.$store.getters['Posts/GetPostById'(ID)]);
+      return this.$store.getters['Posts/GetPostById(ID)'];
+    }, */
+/*   },
+  methods: {
+    Inc() {
+      this.$store.commit("IncLikes");
+    },
+    Dec() {
+      this.$store.commit("DecLikes");
+    }, */
+ /*  }, */
 };
 </script>
 <style>

@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-8 col-lg-8 container-fluid mt-2 text-light">
     <div class="col-6 registration p-2">
-      <form class="text-center">
+      <form class="text-center login">
         <div class="text-center">
           <div class="mt-4 text-center h5">Регистрационная форма</div>
-          <my-input label="Введите логин" v-model="login"/>
+          <my-input label="Введите логин" v-model="name"/>
           <my-input label="Введите email" v-model="email"/>
           <my-input label="Введите пароль" v-model="password"/>
           <my-input label="Повторите пароль" v-model="password2"/>
@@ -24,7 +24,7 @@ import MyInput from "../components/ui/MyInput.vue";
 export default {
   data() {
     return {
-      login:"",
+      name:"",
       email:"",
       password:"",
       password2:"",
@@ -35,9 +35,9 @@ export default {
   },
   components: { MyInput },
   methods: {
-      Registration () {
+      register: function () {
         let data = {
-          login: this.login,
+          name: this.name,
           email: this.email,
           password: this.password,
           is_admin: this.is_admin

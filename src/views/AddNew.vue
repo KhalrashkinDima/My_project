@@ -18,7 +18,7 @@
             placeholder="Введите ссылку на изображение"
             required="required"
             class="text-center w-100 mt-4"
-            v-model="src"
+            v-model="url"
           />
           <input
             type="text"
@@ -27,30 +27,11 @@
             required="required"
             class="text-center w-100 mt-4"
           />
-          <textarea
-            class="form-control mt-4"
-            name="main text"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            v-model="newsText"
-            placeholder="Текст поста"
-          ></textarea>
         </div>
         <button class="mt-4 btn btn-primary" @click="CreatePost">
           Опубликовать пост
         </button>
       </form>
-    </div>
-    <div class="text-center">Предварительный просмотр новости</div>
-    <div class="container-fluid align-items-center">
-      <div class="pt-2">
-        <h4 class="text-center">
-          {{ title }}
-        </h4>
-        <span class="text-center d-block">
-          {{ newsText }}
-        </span>
-      </div>
     </div>
   </div>
 </template>
@@ -59,27 +40,17 @@
 export default {
   data() {
     return {
-      src: "",
+      url: "",
       title: "",
-      newsText: "",
-      count: "0",
-      NewPostId: "",
+      id: String,
     };
-  },
-  computed: {
-    getCurrentId() {
-      let NewPostId = this.$store.getters.GETID;
-      return NewPostId;
-    },
   },
   methods: {
     CreatePost() {
-      this.$store.dispatch('SAVEPOST', {
-        id: this.NewPostId,
+      this.$store.dispatch("posts/CreatePost", {
+        id: this.$store.getters['posts/GetId'],
         title: this.title,
-        src: this.src,
-        count: "0",
-        newText: this.newsText,
+        url: this.url,
       });
     },
   },
