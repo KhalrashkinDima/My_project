@@ -1,21 +1,11 @@
 <template>
   <div class="col-md-8 col-lg-8 container-fluid mt-2 text-light">
     <div class="col-6 verification p-2">
-      <form class="text-center" @submit.prevent="submitHandler">
+      <form class="text-center">
         <div class="text-center">
           <div class="mt-4 text-center h5">Авторизация</div>
-          <input
-            type="text"
-            name="login"
-            placeholder="Введите логин"
-            required="required"
-            class="w-100 mt-4 form-control"
-          />
-          <input
-            type="password"
-            class="form-control mt-4"
-            placeholder="Введите пароль"
-          />
+          <my-input label="Введите логин" v-model="login" />
+          <my-input label="Введите логин" v-model="password" />
           <button class="mt-4 btn btn-primary" type="submit">Войти</button>
         </div>
       </form>
@@ -25,11 +15,21 @@
 <script>
 export default {
   name: "login",
-  methods: {
-    submitHandler() {
-      this.$router.push("/");
-    },
+  data () {
+    return {
+      login:"",
+      password:"",
+    };
   },
+  methods: {
+  verification: function () {
+        let login = this.login 
+        let password = this.password
+        this.$store.dispatch('AUTH', { login, password })
+       .then(() => this.$router.push('/'))
+       .catch(err => console.log(err))
+      }
+    }
 };
 </script>
 <style>

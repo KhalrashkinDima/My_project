@@ -9,7 +9,7 @@
             type="radio"
             name="gridRadios"
             id="gridRadios1"
-            value="option1"
+            value="male"
             checked
           />
           <label class="form-check-label" for="gridRadios1">
@@ -22,7 +22,7 @@
             type="radio"
             name="gridRadios"
             id="gridRadios2"
-            value="option2"
+            value="female"
           />
           <label class="form-check-label" for="gridRadios2">
             {{ answer2 }}

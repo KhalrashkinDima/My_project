@@ -23,7 +23,10 @@ const routes = [
   {
     path: '/AddNew',
     name: 'AddNew',
-    component: () => import('../views/AddNew.vue')
+    component: () => import('../views/AddNew.vue'),
+    meta: { 
+      requiresAUTH: true
+    }
   },
   {
     path: '/RegistrationForm',
@@ -38,12 +41,18 @@ const routes = [
   {
     path: '/MyPosts',
     name: 'MyPosts',
-    component: () => import('../views/MyPosts.vue')
+    component: () => import('../views/MyPosts.vue'),
+    meta: { 
+      requiresAUTH: true
+    }
   },
   {
     path: '/MyComments',
     name: 'MyComments',
-    component: () => import('../views/MyComments.vue')
+    component: () => import('../views/MyComments.vue'),
+    meta: { 
+      requiresAUTH: true
+    }
   },
   {
     path: '/:id',
@@ -55,5 +64,15 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAUTH)) {
+    if (store.getters.ISLOG) {
+      next()
+      return
+    }
+    next('/RegistrationForm') 
+  } else {
+    next() 
+  }
+})
 export default router

@@ -61,17 +61,69 @@ export default createStore({
       },
     ],
     id: "3",
+    status: '',
+    token: localStorage.getItem('token') || '',
+    user: {}
   },
   mutations: {
     ADDPOST: (state, post) => {
       state.posts.push(post);
       console.log(state.posts);
     },
+    AUTHREQ(state){
+      state.status = 'loading'
+    },
+    AUTHSUC(state, token, user){
+      state.status = 'success'
+      state.token = token
+      state.user = user
+    },
+    AUTHERR(state){
+      state.status = 'error'
+    },
   },
   actions: {
-    SAVEPOST : (state, post) => {
-      state.commit('ADDPOST',post)
-   },
+    SAVEPOST: (state, post) => {
+      state.commit('ADDPOST', post)
+    },
+    AUTH({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        commit('auth_request')
+        this.axios.get({ url: 'http://localhost:8080/Verification', data: user, method: 'POST' })
+          .then(resp => {
+            const token = resp.data.token
+            const user = resp.data.login
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common['Authorization'] = token
+            commit('auth_success', token, user)
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('auth_error')
+            localStorage.removeItem('token')
+            reject(err)
+          })
+      })
+    },
+    REG({commit}, user){
+      return new Promise((resolve, reject) => {
+        commit('auth_request')
+        this.axios.get({url: 'http://localhost:3000/RegistrationForm', data: user, method: 'POST' })
+        .then(resp => {
+          const token = resp.data.token
+          const user = resp.data.login
+          localStorage.setItem('token', token)
+          axios.defaults.headers.common['Authorization'] = token
+          commit('auth_success', token, user)
+          resolve(resp)
+        })
+        .catch(err => {
+          commit('auth_error', err)
+          localStorage.removeItem('token')
+          reject(err)
+        })
+      })
+     }
   },
   modules: {
   },
@@ -84,7 +136,9 @@ export default createStore({
     },
     GETID: state => {
       return state.id;
-      state.id ++;
+      state.id++;
     },
+    ISLOG: state => !!state.token,
+    AUTH: state => state.status,
   },
 })

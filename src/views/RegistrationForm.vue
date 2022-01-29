@@ -4,25 +4,14 @@
       <form class="text-center">
         <div class="text-center">
           <div class="mt-4 text-center h5">Регистрационная форма</div>
-          <my-input />
-          <div class="large-12 medium-12 small-12 cell mt-4">
-            <label
-              >Выберите аватар
-              <input
-                type="file"
-                id="file"
-                ref="file"
-                @change="handleFileUpload()"
-              />
-            </label>
-          </div>
-          <my-input label="Введите email" />
-          <my-input label="Введите пароль" />
-          <my-input label="Повторите пароль" />
-          <gender-choose />
-          <choose-from-many />
+          <my-input label="Введите логин" v-model="login"/>
+          <my-input label="Введите email" v-model="email"/>
+          <my-input label="Введите пароль" v-model="password"/>
+          <my-input label="Повторите пароль" v-model="password2"/>
+          <gender-choose v-model="gender"/>
+          <choose-from-many v-model="country"/>
         </div>
-        <button class="mt-4 btn btn-primary mb-2" @click="RegistrationComplete">
+        <button class="mt-4 btn btn-primary mb-2" @click="Registration">
           Зарегистрироваться
         </button>
       </form>
@@ -33,10 +22,31 @@
 <script>
 import MyInput from "../components/ui/MyInput.vue";
 export default {
+  data() {
+    return {
+      login:"",
+      email:"",
+      password:"",
+      password2:"",
+      gender:"",
+      country:"",
+      is_admin : null,
+    };
+  },
   components: { MyInput },
   methods: {
-    RegistrationComplete() {},
-  },
+      Registration () {
+        let data = {
+          login: this.login,
+          email: this.email,
+          password: this.password,
+          is_admin: this.is_admin
+        }
+        this.$store.dispatch('REG', data)
+       .then(() => this.$router.push('/'))
+       .catch(err => console.log(err))
+      }
+    }
 };
 </script>
 
