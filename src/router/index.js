@@ -37,10 +37,10 @@ const routes = [
     name: 'MyComments',
     component: () => import('../views/MyComments.vue')
   },
-/*   {
+ {
     path: '/ :id',
     component: () => import('../views/PostForm.vue')
-  }, */
+  },
 ];
 
 const router = createRouter({

@@ -11,7 +11,7 @@
           <gender-choose v-model="gender"/>
           <choose-from-many v-model="country"/>
         </div>
-        <button class="mt-4 btn btn-primary mb-2" @click="Registration">
+        <button class="mt-4 btn btn-primary mb-2" @click="submit">
           Зарегистрироваться
         </button>
       </form>

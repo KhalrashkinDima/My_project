@@ -1,10 +1,10 @@
 <template>
   <div class="col-md-8 col-lg-8 container-fluid mt-2 text-light">
-    <div class="col-6 verification p-2" @submit.prevent="login">
+    <div class="col-6 verification p-2" @submit="login">
       <form class="text-center">
         <div class="text-center">
           <div class="mt-4 text-center h5">Авторизация</div>
-          <my-input label="Введите логин" v-model="name" />
+          <my-input label="Введите email" v-model="email" />
           <my-input label="Введите логин" v-model="password" />
           <button class="mt-4 btn btn-primary" type="submit">Войти</button>
         </div>
@@ -22,7 +22,14 @@ export default {
     };
   },
   methods: {
-  },
+    login: function () {
+        let email = this.email 
+        let password = this.password
+        this.$store.dispatch('login', { email, password })
+       .then(() => this.$router.push('/'))
+       .catch(err => console.log(err))
+      }
+    },
 };
 </script>
 <style>

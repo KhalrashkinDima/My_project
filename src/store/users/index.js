@@ -1,17 +1,12 @@
+import state from './state.js'
+import mutations from './mutations.js'
+import getters from './getters.js'
+import actions from './actions.js'
+
 export default {
   namespaced: true,
-  state: {
-    status: '123',
-    token: localStorage.getItem('token') || '123',
-    users: [{ name: "admin", password: "admin" }]
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  },
-  getters: {
-
-  },
+    state,
+    mutations,
+    getters,
+    actions,
 }

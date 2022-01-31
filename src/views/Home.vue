@@ -6,24 +6,36 @@
           <h4 class="text-center">
             {{ post.title }}
           </h4>
-          <div class="text-center h5">
-          </div>
+          <div class="text-center h5"></div>
           <img :src="post.url" class="d-block adv_pic img-fluid" />
         </div>
         <super-counter />
         <div class="justify-content-around d-flex">
-        <button class="btn btn-primary" @click="DeletePost(post)">Удалить пост</button>
-        <button class="btn btn-primary" @click="RedactPost">Редактировать пост</button>
+          <button class="btn btn-primary" @click="DeletePost(post)">
+            Удалить пост
+          </button>
+          <button class="btn btn-primary" @click="PostById(post)" :id="post.id">
+            Редактировать пост
+          </button>
         </div>
       </div>
     </div>
+    <modal-redact
+      v-if="moduleRedactShown"
+      @close="CloseRedact"
+      v-bind:postRedact="PostId"
+    />
   </div>
 </template>
 <script>
+import ModalRedact from "../components/ModalRedact.vue";
 export default {
+  components: { ModalRedact },
   data() {
     return {
       ID: Number,
+      moduleRedactShown: false,
+      PostId: 1,
     };
   },
   computed: {
@@ -33,11 +45,17 @@ export default {
   },
   methods: {
     DeletePost(post) {
-      console.log(post);
-      const ID = post.id - 1;
-      console.log(ID);
-      this.$store.commit('posts/PostDelete', ID);
-    }
+      const ID = post.id;
+      this.$store.commit("posts/PostDelete", ID);
+    },
+    CloseRedact() {
+      this.moduleRedactShown = false;
+    },
+    PostById(post) {
+      this.PostId = post.id;
+      this.moduleRedactShown = true;
+      
+    },
   },
   created() {
     this.$store.dispatch("posts/LoadPosts");
