@@ -22,7 +22,7 @@
           </button>
           <button
             class="btn btn-primary"
-            @click="PostById(post)"
+            @click="OpenModal"
             :id="post.id"
             v-if="AdminTrue"
           >
@@ -78,8 +78,7 @@ export default {
     CloseRedact() {
       this.moduleRedactShown = false;
     },
-    PostById(post) {
-      this.PostId = post.id;
+    OpenModal() {
       this.moduleRedactShown = true;
     },
     doLoadPosts(force) {

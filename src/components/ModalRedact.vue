@@ -37,6 +37,11 @@ export default {
   },
   components: { MyInput },
   name: "ModalRedact",
+  methods: {
+    postRedacted() {
+
+    },
+  },
   computed: {
     PostById(postRedact) {
       const CurrentPost = this.$store.getters["posts/GetPostById"];

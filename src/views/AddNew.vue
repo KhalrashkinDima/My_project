@@ -17,7 +17,7 @@
             placeholder="Текст поста"
           ></textarea>
         </div>
-        <button class="mt-4 btn btn-primary" @click="CreatePost">
+        <button class="mt-4 btn btn-primary" @click.prevent="CreatePost">
           Опубликовать пост
         </button>
       </form>
@@ -38,6 +38,9 @@ export default {
   },
   methods: {
     CreatePost() {
+      if (this.AuthTrue !== true) {
+        this.$router.push('/RegistrationForm')
+      }
       this.$store.dispatch("posts/CreatePost", {
         id: this.$store.getters["posts/GetId"],
         title: this.title,
@@ -45,6 +48,11 @@ export default {
         count: "0",
         newsText: this.newsText,
       });
+    },
+  },
+  computed: {
+    AuthTrue() {
+      return this.$store.getters["users/isAuth"];
     },
   },
 };
