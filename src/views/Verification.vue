@@ -6,7 +6,7 @@
           <div class="mt-4 text-center h5">Авторизация</div>
           <my-input label="Введите email" v-model="email" />
           <my-input label="Введите логин" v-model="password" />
-          <button class="mt-4 btn btn-primary" type="submit">Войти</button>
+          <button class="mt-4 btn btn-primary" @click="Login">Войти</button>
         </div>
       </form>
     </div>
@@ -14,18 +14,20 @@
 </template>
 <script>
 export default {
-  name: "login",
+  name: "Login",
   data () {
     return {
-      name:"",
+      email:"",
       password:"",
     };
   },
   methods: {
-    login: function () {
-        let email = this.email 
-        let password = this.password
-        this.$store.dispatch('login', { email, password })
+    Login() {
+        let data = {
+          email: this.email,
+          password: this.password,
+        }
+        this.$store.dispatch('users/login',  data )
        .then(() => this.$router.push('/'))
        .catch(err => console.log(err))
       }
