@@ -38,7 +38,7 @@ const routes = [
     component: () => import('../views/MyComments.vue')
   },
  {
-    path: '/ :id',
+    path: '/:id',
     component: () => import('../views/PostForm.vue')
   },
 ];

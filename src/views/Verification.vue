@@ -6,7 +6,7 @@
           <div class="mt-4 text-center h5">Авторизация</div>
           <my-input label="Введите email" v-model="email" />
           <my-input label="Введите логин" v-model="password" />
-          <button class="mt-4 btn btn-primary" @click="Login">Войти</button>
+          <button class="mt-4 btn btn-primary" @click.prevent="Login">Войти</button>
         </div>
       </form>
     </div>

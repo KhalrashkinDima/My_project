@@ -22,13 +22,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <div class="navbar-nav text-center">
-                <router-link to="/" class="fw-bold text-light h4 upp_nav nav-item me-lg-5"
+                <router-link
+                  to="/"
+                  class="fw-bold text-light h4 upp_nav nav-item me-lg-5"
                   >Главная</router-link
                 >
-                <router-link to="/Best" class="fw-bold text-light h4 upp_nav nav-item me-lg-5"
+                <router-link
+                  to="/Best"
+                  class="fw-bold text-light h4 upp_nav nav-item me-lg-5"
                   >Лучшее</router-link
                 >
-                <router-link to="/AddNew" class="fw-bold text-light h4 upp_nav nav-item me-lg-5"
+                <router-link
+                  to="/AddNew"
+                  class="fw-bold text-light h4 upp_nav nav-item me-lg-5"
                   >Добавить новость</router-link
                 >
               </div>
@@ -41,9 +47,21 @@
           src="@/components/img/profile_icon.png"
           class="d-block profile_icon ps-4 img-fluid"
           @click="ProfileInform"
+          v-if="AuthTrue"
         />
+        <router-link to="/RegistrationForm" v-else>
+          <img
+            src="@/components/img/profile_icon.png"
+            class="d-block profile_icon ps-4 img-fluid"
+        /></router-link>
       </div>
-      <div class="col-md-2 col-lg-2 align-self-center">
+      <div
+        class="col-md-2 col-lg-2 align-self-center text-center"
+        v-if="AuthTrue"
+      >
+        <div class="fw-bold text-light h4 upp_nav" @click="Loginout">Выйти</div>
+      </div>
+      <div class="col-md-2 col-lg-2 align-self-center" v-else>
         <div class="pt-2 background-down background-primary text-center">
           <router-link to="/Verification" class="fw-bold text-light h4 upp_nav"
             >Войти</router-link
@@ -76,6 +94,17 @@ export default {
     ProfileClose() {
       this.modulewindowShown = false;
     },
+    Loginout() {
+      this.$store.dispatch("users/logout");
+    },
+  },
+  computed: {
+    AuthTrue() {
+      return this.$store.getters["users/isAuth"];
+    },
+    AdminTrue() {
+      return this.$store.getters["users/isAdmin"];
+    },
   },
 };
 </script>
@@ -87,6 +116,7 @@ export default {
 }
 .upp_nav {
   text-decoration: none;
+  cursor:pointer;
 }
 header {
   max-width: 1420px;

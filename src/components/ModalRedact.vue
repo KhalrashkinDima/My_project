@@ -2,16 +2,27 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container text-center text-light align-items-center">
+        <div class="modal-containe text-center text-light align-items-center">
           <div class="h5">Редактор поста</div>
-          <my-input label="Заголовок поста" />
-          <my-input label="Ссылка на картинку" />
-          <button class="btn btn-primary mt-4" @click="PostRedact">
+          <my-input label="Заголовок поста" v-model="PostById.title" />
+          <my-input label="Ссылка на картинку" v-model="PostById.url" />
+          <div class="pt-2">Введите основной текст</div>
+          <textarea
+            class="form-control mt-3"
+            name="main text"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            v-model="PostById.newsText"
+            placeholder="Текст поста"
+          ></textarea>
+          <div class="d-flex justify-content-around">
+          <button class="btn btn-primary mt-4" @click="PostRedacted">
             Сохранить изменения
           </button>
           <button class="btn btn-primary mt-4" @click="$emit('close')">
             Выйти без сохранений
           </button>
+          </div>
         </div>
       </div>
     </div>
@@ -21,18 +32,17 @@
 <script>
 import MyInput from "./ui/MyInput.vue";
 export default {
+  props: {
+    postRedact: Number,
+  },
   components: { MyInput },
   name: "ModalRedact",
-  props: {
-    postRedact: {
-      type: Number,
+  computed: {
+    PostById(postRedact) {
+      const CurrentPost = this.$store.getters["posts/GetPostById"];
+      return CurrentPost(this.postRedact);
     },
   },
-/* mounted: {
-    PostById() {
-      return this.$store.getters["Posts/GetPostById(postRedact)"];
-    },
-  }, */
 };
 </script>
 
@@ -54,8 +64,8 @@ export default {
   vertical-align: middle;
 }
 
-.modal-container {
-  width: 300px;
+.modal-containe {
+  width: 500px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

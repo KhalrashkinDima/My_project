@@ -3,22 +3,18 @@
     <div class="container-fluid align-items-center">
       <div class="pt-2 pb-2">
         <h4 class="text-center">
-          {{ postById.title }}
+          {{ ThisPost.title }}
         </h4>
-        <img :src="postById.src" class="d-block adv_pic img-fluid" />
         <span>
-          {{ postById.newText }}
+          <img :src="ThisPost.url" class="d-block adv_pic img-fluid" />
         </span>
-        <div>
-          Оценить новость
-          <button @click="postById.count--" class="rate_button">
-            <img src="@/components/img/dislike.png" class="rate_image" />
-          </button>
-          {{ postById.count }}
-          <button @click="postById.count++" class="rate_button">
-            <img src="@/components/img/like.png" class="rate_image" />
-          </button>
-        </div>
+        Оценить новость
+        <button @click="Dec" class="rate_button">
+          <img src="@/components/img/dislike.png" class="rate_image" />
+        </button>
+        <button @click="Inc" class="rate_button">
+          <img src="@/components/img/like.png" class="rate_image" />
+        </button>
       </div>
     </div>
   </div>
@@ -28,27 +24,21 @@ export default {
   data() {
     return {
       count: 0,
-      show: false,
+      IdNumber: 3,
     };
   },
-/*   computed: {
+  computed: {
     CreateNumber() {
-      const ID = this.$route.params.id ;
-      return ID;
+      const IdNumber = this.$route.params.id;
+      return IdNumber;
     },
-    postById() {
-      console.log(this.$store.getters['Posts/GetPostById'(ID)]);
-      return this.$store.getters['Posts/GetPostById(ID)'];
-    }, */
-/*   },
+    ThisPost(IdNumber) {
+      const PostToRead = this.$store.getters["posts/GetPostById"];
+      return PostToRead(this.IdNumber);
+    },
+  },
   methods: {
-    Inc() {
-      this.$store.commit("IncLikes");
-    },
-    Dec() {
-      this.$store.commit("DecLikes");
-    }, */
- /*  }, */
+  },
 };
 </script>
 <style>

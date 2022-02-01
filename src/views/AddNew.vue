@@ -4,29 +4,18 @@
       <form class="text-center">
         <div class="text-center">
           <div class="mt-4 text-center h5">Форма добавления поста</div>
-          <input
-            type="text"
-            name="post name"
-            placeholder="Наименование поста"
-            required="required"
-            class="text-center w-100 mt-4"
-            v-model="title"
-          />
-          <input
-            type="text"
-            name="image"
-            placeholder="Введите ссылку на изображение"
-            required="required"
-            class="text-center w-100 mt-4"
-            v-model="url"
-          />
-          <input
-            type="text"
-            name="hashtag"
-            placeholder="Введите теги"
-            required="required"
-            class="text-center w-100 mt-4"
-          />
+
+          <my-input label="Заголовок поста" v-model="title" />
+          <my-input label="Введите ссылку на изображение" v-model="url" />
+          <div class="pt-2">Введите основной текст</div>
+          <textarea
+            class="form-control mt-3"
+            name="main text"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            v-model="newsText"
+            placeholder="Текст поста"
+          ></textarea>
         </div>
         <button class="mt-4 btn btn-primary" @click="CreatePost">
           Опубликовать пост
@@ -43,14 +32,18 @@ export default {
       url: "",
       title: "",
       id: String,
+      count: "0",
+      newsText: "",
     };
   },
   methods: {
     CreatePost() {
       this.$store.dispatch("posts/CreatePost", {
-        id: this.$store.getters['posts/GetId'],
+        id: this.$store.getters["posts/GetId"],
         title: this.title,
         url: this.url,
+        count: "0",
+        newsText: this.newsText,
       });
     },
   },

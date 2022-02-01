@@ -11,7 +11,7 @@
           <gender-choose v-model="gender"/>
           <choose-from-many v-model="country"/>
         </div>
-        <button class="mt-4 btn btn-primary mb-2" @click="submit">
+        <button class="mt-4 btn btn-primary mb-2" @click="Registration">
           Зарегистрироваться
         </button>
       </form>
@@ -35,14 +35,16 @@ export default {
   },
   components: { MyInput },
   methods: {
-      register: function () {
+      Registration: function () {
+        if (this.password !== this.password2) {
+          alert("Пароли не совпадают");
+        };
         let data = {
           name: this.name,
           email: this.email,
           password: this.password,
-          is_admin: this.is_admin
         }
-        this.$store.dispatch('REG', data)
+        this.$store.dispatch('users/sign', data)
        .then(() => this.$router.push('/'))
        .catch(err => console.log(err))
       }
