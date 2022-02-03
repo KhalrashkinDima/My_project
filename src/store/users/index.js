@@ -19,10 +19,11 @@ export default {
         return true;
       };
     },
-    ReturnName(state) {
-      if (state.email !== '') {
-        return state.email;
-      };
+/*     ReturnName(state) {
+      if (state.uid !== '') {
+        const NickName = this.state.email;
+        return this.Nickname;
+      }; */
     },
   },
   mutations: {

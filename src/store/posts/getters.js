@@ -1,12 +1,19 @@
 export default {
     GetPosts: state => {
-        return state.posts;
+        const posts = state.posts
+        posts.sort((a, b) => {
+            return a.date - b.date;
+        });
+        return posts;
     },
     GetPostById: state => id => {
         return state.posts.find(posts => posts.id === id);
     },
-    GetId: state => {
-        return state.posts.length + 1;
-
+    GetBest: state => {
+        const BestPosts = state.posts
+        BestPosts.sort((x, y) => {
+            return y.count - x.count;
+        });
+        return BestPosts;
     },
 }
