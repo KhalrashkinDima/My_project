@@ -1,5 +1,5 @@
 export default {
-  AddPost(state, post) {
+  addPost(state, post) {
     state.posts.push(post);
   },
   PostDelete(state, index) {
@@ -8,4 +8,9 @@ export default {
   ChangePost(state, id, NewObject) {
     state.posts.splice(id, 1, NewObject);
   },
+  clear(state) {
+    state.posts = [];
+  },
 }
+
+

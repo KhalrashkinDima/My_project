@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 export default {
   namespaced: true,
@@ -15,19 +15,28 @@ export default {
       };
     },
     isAdmin(state) {
-      if( state.uid == '3aGiZCpDe5PiBWtdGoG8lF6uRYt1') {
+      if (state.uid == '3aGiZCpDe5PiBWtdGoG8lF6uRYt1') {
         return true;
+      };
+    },
+    ReturnName(state) {
+      if (state.email !== '') {
+        return state.email;
       };
     },
   },
   mutations: {
+    setUser(state, data) {
+      state.name = data.email;
+      state.uid = data.uid;
+    },
   },
   actions: {
     login(ctx, data) {
       const auth = getAuth();
       return signInWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
-          ctx.state.uid = userCredential.user.uid;  
+          ctx.state.uid = userCredential.user.uid;
           return 'ok';
         })
         .catch((error) => {
@@ -39,7 +48,7 @@ export default {
       const auth = getAuth();
       return createUserWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
-          ctx.state.uid = userCredential.user.uid;  
+          ctx.state.uid = userCredential.user.uid;
           return 'ok';
         })
         .catch((error) => {
@@ -48,8 +57,11 @@ export default {
         });
     },
     logout(ctx) {
-      ctx.state.email = '';
-      ctx.state.uid = '';
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        ctx.state.uid = '';
+        ctx.state.name = '';
+      });
     },
   },
 }

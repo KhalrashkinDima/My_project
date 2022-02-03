@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(post, index) in postList" :key="post.id">
+    <div v-for="post in postList" :key="post.id">
       <div class="container-fluid align-items-center pb-2">
         <div class="pt-2">
           <h4 class="text-center">
@@ -9,27 +9,19 @@
           <div class="text-center h5"></div>
           <img :src="post.url" class="d-block adv_pic img-fluid" />
         </div>
-        <super-counter 
-        v-if="AuthTrue"
-        />
+        <div class="text-center h5  pt-3">
+          Рейтинг новости: {{ post.count }}
+        </div>
         <div class="justify-content-around d-flex mt-4">
           <button
-            class="btn btn-primary"
-            @click="DeletePost(index)"
+            class="btn btn-secondary"
+            @click="PostDelete(post.id)"
             v-if="AdminTrue"
           >
             Удалить пост
           </button>
           <button
-            class="btn btn-primary"
-            @click="OpenModal"
-            :id="post.id"
-            v-if="AdminTrue"
-          >
-            Редактировать пост
-          </button>
-          <button
-            class="btn btn-primary"
+            class="btn btn-secondary"
             @click="$router.push('/' + post.id)"
             :id="post.id"
           >
@@ -38,26 +30,17 @@
         </div>
       </div>
     </div>
-    <modal-redact
-      v-if="moduleRedactShown"
-      @close="CloseRedact"
-      v-bind:postRedact="PostId"
-    />
-    <div class="m-2 text-center">
+<!--     <div class="m-2 text-center">
       <button class="btn btn-secondary" @click="doLoadPosts(true)">
         Загрузить посты
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
-import ModalRedact from "../components/ModalRedact.vue";
 export default {
-  components: { ModalRedact },
   data() {
     return {
-      moduleRedactShown: false,
-      PostId: 1,
     };
   },
   computed: {
@@ -72,22 +55,16 @@ export default {
     },
   },
   methods: {
-    DeletePost(index) {
-      this.$store.commit("posts/PostDelete", index);
+    PostDelete(id) {
+      this.$store.dispatch('posts/deletePost', id);
     },
-    CloseRedact() {
-      this.moduleRedactShown = false;
-    },
-    OpenModal() {
-      this.moduleRedactShown = true;
-    },
-    doLoadPosts(force) {
+/*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });
-    },
+    }, */
   },
-  created() {
+/*   created() {
     this.doLoadPosts(false);
-  },
+  }, */
 };
 </script>
 

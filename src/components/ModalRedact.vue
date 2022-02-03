@@ -2,26 +2,34 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-containe text-center text-light align-items-center">
-          <div class="h5">Редактор поста</div>
-          <my-input label="Заголовок поста" v-model="PostById.title" />
-          <my-input label="Ссылка на картинку" v-model="PostById.url" />
-          <div class="pt-2">Введите основной текст</div>
-          <textarea
-            class="form-control mt-3"
-            name="main text"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            v-model="PostById.newsText"
-            placeholder="Текст поста"
-          ></textarea>
-          <div class="d-flex justify-content-around">
-          <button class="btn btn-primary mt-4" @click="PostRedacted">
-            Сохранить изменения
-          </button>
-          <button class="btn btn-primary mt-4" @click="$emit('close')">
-            Выйти без сохранений
-          </button>
+        <div
+          class="
+            modal-container
+            text-center text-light
+            align-items-center
+          "
+        >
+          <div class="modalWindow">
+            <div class="h5">Редактор поста</div>
+            <my-input label="Заголовок поста" v-model="PostIdRedact.title" />
+            <my-input label="Ссылка на картинку" v-model="PostIdRedact.url" />
+            <div class="pt-2">Введите основной текст</div>
+            <textarea
+              class="form-control mt-3"
+              name="main text"
+              id="exampleFormControlTextarea1"
+              rows="10"
+              v-model="PostIdRedact.newsText"
+              placeholder="Текст поста"
+            ></textarea>
+            <div class="d-flex justify-content-around">
+              <button class="btn btn-primary mt-4" @click="postRedacted">
+                Сохранить изменения
+              </button>
+              <button class="btn btn-primary mt-4" @click="$emit('close')">
+                Выйти без сохранений
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -31,21 +39,31 @@
 
 <script>
 import MyInput from "./ui/MyInput.vue";
+import { mapGetters } from "vuex";
 export default {
   props: {
-    postRedact: Number,
+    postRedact: String,
   },
   components: { MyInput },
   name: "ModalRedact",
   methods: {
     postRedacted() {
-
+      this.$store.dispatch("posts/updatePost", {
+        title: this.PostIdRedact.title,
+        url: this.PostIdRedact.url,
+        count: this.PostIdRedact.count,
+        newsText: this.PostIdRedact.newsText,
+        id: this.PostIdRedact.id,
+      });
+      this.$emit('close');
     },
   },
   computed: {
-    PostById(postRedact) {
-      const CurrentPost = this.$store.getters["posts/GetPostById"];
-      return CurrentPost(this.postRedact);
+    ...mapGetters({
+      GetPostById: "posts/GetPostById",
+    }),
+    PostIdRedact() {
+      return this.GetPostById(this.postRedact);
     },
   },
 };
@@ -69,8 +87,8 @@ export default {
   vertical-align: middle;
 }
 
-.modal-containe {
-  width: 500px;
+.modal-container {
+  width: 700px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;

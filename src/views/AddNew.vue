@@ -1,6 +1,6 @@
 <template>
   <div class="col-md-8 col-lg-8 container-fluid pt-2">
-    <div class="col-8 add_post text-light p-4">
+    <div class="col-11 add_post text-light p-4">
       <form class="text-center">
         <div class="text-center">
           <div class="mt-4 text-center h5">Форма добавления поста</div>
@@ -12,12 +12,12 @@
             class="form-control mt-3"
             name="main text"
             id="exampleFormControlTextarea1"
-            rows="3"
+            rows="10"
             v-model="newsText"
             placeholder="Текст поста"
           ></textarea>
         </div>
-        <button class="mt-4 btn btn-primary" @click.prevent="CreatePost">
+        <button class="mt-4 btn btn-primary" @click="CreatePost">
           Опубликовать пост
         </button>
       </form>
@@ -31,28 +31,34 @@ export default {
     return {
       url: "",
       title: "",
-      id: String,
       count: "0",
       newsText: "",
+      name: "",
     };
   },
   methods: {
     CreatePost() {
       if (this.AuthTrue !== true) {
-        this.$router.push('/RegistrationForm')
+        this.$router.push("/RegistrationForm");
+        return null;
       }
       this.$store.dispatch("posts/CreatePost", {
-        id: this.$store.getters["posts/GetId"],
         title: this.title,
         url: this.url,
         count: "0",
         newsText: this.newsText,
+        author: this.name,
       });
+      this.$router.push("/");
     },
   },
   computed: {
     AuthTrue() {
       return this.$store.getters["users/isAuth"];
+    },
+    CurrentId() {
+      const ThisId = this.$store.getters["posts/GetId"];
+      return ThisId;
     },
   },
 };

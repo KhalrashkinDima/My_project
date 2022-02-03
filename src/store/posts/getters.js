@@ -7,5 +7,6 @@ export default {
     },
     GetId: state => {
         return state.posts.length + 1;
+
     },
 }

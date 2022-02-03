@@ -30,7 +30,6 @@ export default {
       password2:"",
       gender:"",
       country:"",
-      is_admin : null,
     };
   },
   components: { MyInput },
