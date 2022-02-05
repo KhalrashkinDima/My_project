@@ -24,7 +24,6 @@ export default {
         const NickName = this.state.email;
         return this.Nickname;
       }; */
-    },
   },
   mutations: {
     setUser(state, data) {

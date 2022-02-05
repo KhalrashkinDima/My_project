@@ -17,7 +17,7 @@
             placeholder="Текст поста"
           ></textarea>
         </div>
-        <button class="mt-4 btn btn-primary" @click="CreatePost">
+        <button class="mt-4 btn btn-primary" @click.prevent="CreatePost">
           Опубликовать пост
         </button>
       </form>
@@ -34,6 +34,7 @@ export default {
       count: "0",
       newsText: "",
       name: "",
+      date:""
     };
   },
   methods: {
@@ -48,6 +49,7 @@ export default {
         count: "0",
         newsText: this.newsText,
         author: this.name,
+        date: new Date().toString(),
       });
       this.$router.push("/");
     },
@@ -55,10 +57,6 @@ export default {
   computed: {
     AuthTrue() {
       return this.$store.getters["users/isAuth"];
-    },
-    CurrentId() {
-      const ThisId = this.$store.getters["posts/GetId"];
-      return ThisId;
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="post in postList" :key="post.id">
-      <div class="container-fluid align-items-center pb-2">
+      <div class="container-fluid align-items-center pb-2 border-bottom border-danger">
         <div class="pt-2">
           <h4 class="text-center">
             {{ post.title }}
@@ -9,8 +9,11 @@
           <div class="text-center h5"></div>
           <img :src="post.url" class="d-block adv_pic img-fluid" />
         </div>
-        <div class="text-center h5  pt-3">
-          Рейтинг новости: {{ post.count }}
+        <div class="d-flex justify-content-between">
+          <div class="text-center h5 pt-3">
+            Рейтинг новости: {{ post.count }}
+          </div>
+         <!--  <div class="text-center pt-3">Дата поста: {{ post.date }}</div> -->
         </div>
         <div class="justify-content-around d-flex mt-4">
           <button
@@ -30,7 +33,7 @@
         </div>
       </div>
     </div>
-<!--     <div class="m-2 text-center">
+    <!--     <div class="m-2 text-center">
       <button class="btn btn-secondary" @click="doLoadPosts(true)">
         Загрузить посты
       </button>
@@ -40,8 +43,7 @@
 <script>
 export default {
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
     postList() {
@@ -56,13 +58,13 @@ export default {
   },
   methods: {
     PostDelete(id) {
-      this.$store.dispatch('posts/deletePost', id);
+      this.$store.dispatch("posts/deletePost", id);
     },
-/*     doLoadPosts(force) {
+    /*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });
     }, */
   },
-/*   created() {
+  /*   created() {
     this.doLoadPosts(false);
   }, */
 };

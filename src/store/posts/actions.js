@@ -19,9 +19,10 @@ function generateUUID() {
 export default {
 
     CreatePost(context, data) {
+        /*    data.date = Date.now(); */
         data.id = generateUUID();
         const db = getDatabase();
-        set(ref(db, '/posts/'+data.id), data);
+        set(ref(db, '/posts/' + data.id), data);
     },
 
     updatePost(context, data) {
@@ -41,8 +42,8 @@ export default {
     IncreaseCount(context, id) {
         const updates = {};
         const SearchPost = context.state.posts.find(posts => posts.id === id);
-        const newCount = SearchPost.count ++;
-        updates['/posts/' + id +'/count' ] = newCount;
+        const newCount = SearchPost.count++;
+        updates['/posts/' + id + '/count'] = newCount;
 
         const db = getDatabase();
         return update(ref(db), updates);
@@ -50,33 +51,33 @@ export default {
     DecreaseCount(context, id) {
         const updates = {};
         const SearchPost = context.state.posts.find(posts => posts.id === id);
-        const newCount = SearchPost.count --;
-        updates['/posts/' + id +'/count' ] = newCount;
+        const newCount = SearchPost.count--;
+        updates['/posts/' + id + '/count'] = newCount;
 
         const db = getDatabase();
         return update(ref(db), updates);
-    }
+    },
 }
         // Функция были для получения json и его парсинга
-        /*     LoadPosts(context, data) {
-                if (!context.state.initLoad || data.force) {
-                    context.state.initLoad = true;
-                    fetch('https://jsonplaceholder.typicode.com/albums/1/photos')
-                        .then(response => response.json())
-                        .then((json) => context.state.posts = context.state.posts.concat(json))
-                }
-            }, */
+/*     LoadPosts(context, data) {
+        if (!context.state.initLoad || data.force) {
+            context.state.initLoad = true;
+            fetch('https://jsonplaceholder.typicode.com/albums/1/photos')
+                .then(response => response.json())
+                .then((json) => context.state.posts = context.state.posts.concat(json))
+        }
+    }, */
         //Эта функция была для добавления поста в json
-        /*     CreatePost(context, title, url, id) {
-                fetch('https://jsonplaceholder.typicode.com/albums/', {
-                    method: 'POST',
-                    body: JSON.stringify(title, url, id),
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    },
-                })
-                    .then(response => response.json())
-                    .then((json) => context.commit('AddPost', json));
-            } */
+/*     CreatePost(context, title, url, id) {
+        fetch('https://jsonplaceholder.typicode.com/albums/', {
+            method: 'POST',
+            body: JSON.stringify(title, url, id),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then(response => response.json())
+            .then((json) => context.commit('AddPost', json));
+    } */
 
 
