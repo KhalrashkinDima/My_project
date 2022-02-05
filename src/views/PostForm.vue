@@ -35,19 +35,23 @@
         @close="CloseRedact"
         v-bind:postRedact="ThisId.id"
       />
-<!--       <div class="p-2"  v-for="comment in CommentsList">
-        <div class="h5 text-center">Комментарии</div>
+      <div class="h5 text-center">Комментарии</div>
+      <div class="p-2" v-for="comment in CommentsList">
         <div class="comments">
           <div class="comment d-flex align-items-center">
-            <div class="col-2 text-center align-items-center m-2">{{comment.author}}</div>
             <div
-              class="col-10 comment-text ps-2 text-center align-items-center"
+              class="col-4 text-center align-items-center m-2 comment_author"
             >
-              {{comment.text}}
+              <div>Автор комментария</div>
+              <div>{{ comment.authorName }}</div>
+            </div>
+            <div class="col-8 comment-text ps-2 text-center align-items-center">
+              <div>Текст комментария</div>
+              <div>{{ comment.commentText }}</div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       <div class="comment_form p-2 text-center mb-2 text-light">
         <my-input label="Желаете оставить комментарий?" v-model="commentText" />
         <button class="btn btn-secondary mt-4" @click="CommentSend">
@@ -70,20 +74,18 @@ export default {
       authorName: "",
       commentDate: "",
       postId: "",
+      id: "",
     };
   },
   computed: {
     ...mapGetters({
       GetPostById: "posts/GetPostById",
-      GetCommentId: "comments/GetCommentId",
       ReturnName: "users/ReturnName",
       GetPostComments: "comments/GetPostComments",
+      IsLiked: "posts/IsLiked",
     }),
     ThisId() {
       return this.GetPostById(this.$route.params.id);
-    },
-    ThisCommentId() {
-       return this.GetCommentId(this.$route.params.id);
     },
     AdminTrue() {
       return this.$store.getters["users/isAdmin"];
@@ -91,11 +93,14 @@ export default {
     AuthTrue() {
       return this.$store.getters["users/isAuth"];
     },
-/*     WhatYourName() {
-      return this.ReturnName;
-    }, */
-      CommentsList() {
+    WhatYourName() {
+      return this.$store.getters["users/ReturnName"];
+    },
+    CommentsList() {
       return this.GetPostComments(this.$route.params.id);
+    },
+    IsLiked() {
+      return this.IsLiked(this.ThisId.authorUid);
     },
   },
 
@@ -105,8 +110,11 @@ export default {
         alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
         return null;
       }
-      console.log(this.$route.params.id);
       this.$store.dispatch("posts/IncreaseCount", this.$route.params.id);
+      this.$store.dispatch("posts/CreateLike", {
+        likeId: this.ThisId.id,
+        uid: this.$store.getters["users/ReturnUid"],
+      });
     },
     Dec() {
       if (this.AuthTrue !== true) {
@@ -114,6 +122,10 @@ export default {
         return null;
       }
       this.$store.dispatch("posts/DecreaseCount", this.$route.params.id);
+      this.$store.dispatch("posts/CreateLike", {
+        likeId: this.ThisId.id,
+        uid: this.$store.getters["users/ReturnUid"],
+      });
     },
     CloseRedact() {
       this.moduleRedactShown = false;
@@ -123,15 +135,15 @@ export default {
     },
     CommentSend() {
       if (this.AuthTrue !== true) {
+        alert("Чтобы оставить комментарий зарегистрируйтесь");
         this.$router.push("/RegistrationForm");
         return null;
       }
       this.$store.dispatch("comments/CreateComment", {
-        authorName: "admin",
+        authorName: this.$store.getters["users/ReturnName"],
         commentText: this.commentText,
         date: new Date().toString(),
         postId: this.ThisId.id,
-        commentId: this.ThisCommentId,
       });
     },
   },
@@ -139,7 +151,8 @@ export default {
 </script>
 <style>
 .comments {
-  max-height: 80px;
+  border: 2px solid #3f5062;
+  border-radius: 5px;
 }
 .user_icon {
   max-height: 50px;
@@ -149,6 +162,10 @@ export default {
 }
 .comment_form {
   border-radius: 10px;
+}
+.comment_author {
+  border: 2px solid #3f5062;
+  border-radius: 5px;
 }
 </style>
 

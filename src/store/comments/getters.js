@@ -1,10 +1,9 @@
 export default {
-    GetCommentId: state => id =>  {
-        console.log(state.comments.filter(comments => comments.id === id).length);
-        return state.comments.filter(comments => comments.id === id).length;
+    GetCommentId(state) {
+        console.log(state.comments);
+        return state.comments.length + 1;
     },
     GetPostComments: state => id =>  {
-        console.log(state.comments.filter(comments => comments.id === id));
-        return state.comments.filter(comments => comments.id === id);
+        return state.comments.filter(comments => comments.postId === id);
     },
-}
+}  

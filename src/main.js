@@ -9,7 +9,6 @@ import MyInput from "@/components/ui/MyInput.vue";
 import GenderChoose from "@/components/ui/GenderChoose.vue";
 import ChooseFromMany from "@/components/ui/ChooseFromMany.vue";
 import axios from 'axios';
-import SuperCounter from "@/components/ui/SuperCounter.vue";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, onValue } from "firebase/database";
@@ -40,6 +39,13 @@ onValue(ref(db, '/posts'), (snapshot) => {
 }
 });
 
+onValue(ref(db, '/comments'), (snapshot) => {
+  store.commit('comments/clear',);
+  const postsObject = snapshot.val();
+  for (const [key, value] of Object.entries(postsObject)) {
+    store.commit('comments/addComments', value);
+}
+});
 
 onAuthStateChanged(auth, (users) => {
   if (users) {
@@ -60,7 +66,6 @@ app.component('ModalProfile', ModalProfile)
 app.component('MyInput', MyInput)
 app.component('GenderChoose', GenderChoose)
 app.component('ChooseFromMany', ChooseFromMany)
-app.component('SuperCounter', SuperCounter)
 
 app.config.globalProperties.axios = axios
 

@@ -33,7 +33,7 @@ export default {
       title: "",
       count: "0",
       newsText: "",
-      name: "",
+      authorUid: "",
       date:""
     };
   },
@@ -48,7 +48,7 @@ export default {
         url: this.url,
         count: "0",
         newsText: this.newsText,
-        author: this.name,
+        authorUid: this.$store.getters["users/ReturnUid"],
         date: new Date().toString(),
       });
       this.$router.push("/");

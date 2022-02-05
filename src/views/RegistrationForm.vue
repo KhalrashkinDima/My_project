@@ -22,6 +22,7 @@
 <script>
 import MyInput from "../components/ui/MyInput.vue";
 export default {
+    components: { MyInput },
   data() {
     return {
       name:"",
@@ -32,7 +33,6 @@ export default {
       country:"",
     };
   },
-  components: { MyInput },
   methods: {
       Registration: function () {
         if (this.password !== this.password2) {

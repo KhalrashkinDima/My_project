@@ -1,7 +1,14 @@
 <template>
   <div>
     <div v-for="post in postList" :key="post.id">
-      <div class="container-fluid align-items-center pb-2 border-bottom border-danger">
+      <div
+        class="
+          container-fluid
+          align-items-center
+          pb-2
+          border-bottom border-danger
+        "
+      >
         <div class="pt-2">
           <h4 class="text-center">
             {{ post.title }}
@@ -13,7 +20,7 @@
           <div class="text-center h5 pt-3">
             Рейтинг новости: {{ post.count }}
           </div>
-         <!--  <div class="text-center pt-3">Дата поста: {{ post.date }}</div> -->
+          <!--  <div class="text-center pt-3">Дата поста: {{ post.date }}</div> -->
         </div>
         <div class="justify-content-around d-flex mt-4">
           <button
@@ -58,7 +65,13 @@ export default {
   },
   methods: {
     PostDelete(id) {
-      this.$store.dispatch("posts/deletePost", id);
+      const conf = confirm(
+        "Вы точно уверены в том что желаете удалить данный пост?"
+      );
+      if (conf === true) {
+        this.$store.dispatch("posts/deletePost", id);
+      }
+      return null;
     },
     /*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });

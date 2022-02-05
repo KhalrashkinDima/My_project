@@ -19,11 +19,12 @@ export default {
         return true;
       };
     },
-/*     ReturnName(state) {
-      if (state.uid !== '') {
-        const NickName = this.state.email;
-        return this.Nickname;
-      }; */
+    ReturnName(state) {
+        return state.name;
+    },
+    ReturnUid(state) {
+      return state.uid;
+    },
   },
   mutations: {
     setUser(state, data) {
@@ -37,6 +38,7 @@ export default {
       return signInWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
           ctx.state.uid = userCredential.user.uid;
+          ctx.state.email = userCredential.user.email;
           return 'ok';
         })
         .catch((error) => {
@@ -49,6 +51,7 @@ export default {
       return createUserWithEmailAndPassword(auth, data.email, data.password)
         .then((userCredential) => {
           ctx.state.uid = userCredential.user.uid;
+          ctx.state.email = userCredential.user.email;
           return 'ok';
         })
         .catch((error) => {

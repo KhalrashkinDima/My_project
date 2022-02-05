@@ -1,5 +1,5 @@
 import { ssrContextKey } from "vue"
-import { getDatabase, ref, set, update, child } from "firebase/database";
+import { getDatabase, ref, set, update, child, runTransaction } from "firebase/database";
 import posts from ".";
 
 function generateUUID() {
@@ -23,6 +23,7 @@ export default {
         data.id = generateUUID();
         const db = getDatabase();
         set(ref(db, '/posts/' + data.id), data);
+        set(ref(db, '/likes/' + data.id), data.id);
     },
 
     updatePost(context, data) {
@@ -35,7 +36,7 @@ export default {
     deletePost(context, id) {
         const updates = {};
         updates['/posts/' + id] = null;
-
+        updates['/likes/' + data.id] = null;
         const db = getDatabase();
         return update(ref(db), updates);
     },
@@ -54,6 +55,12 @@ export default {
         const newCount = SearchPost.count--;
         updates['/posts/' + id + '/count'] = newCount;
 
+        const db = getDatabase();
+        return update(ref(db), updates);
+    },
+    CreateLike(context, data) {
+        const updates = {};
+        updates['/posts/' + data.likeId + '/likes/' + data.uid] = true;
         const db = getDatabase();
         return update(ref(db), updates);
     },

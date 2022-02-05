@@ -2,14 +2,10 @@
   <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container text-center text-light align-items-center">
-          <div class="h5">Информация о профиле</div>
+        <div class="modal-contain text-center text-light align-items-center">
+          <div class="h5">Здравствуй</div>
           <div class="m-2">
-            <img
-              src="@/components/img/logo.png"
-              class="d-block, w-90 logo ps-4"
-            />
-            <button class="btn btn-secondary">+ Добавить аватар</button>
+            {{$store.getters["users/ReturnName"]}}
           </div>
           <button class="btn btn-secondary col-12 mt-4" @click="$emit('close')">
             <router-link to="/MyPosts" class="text-light text-decoration-none"
@@ -52,7 +48,7 @@ export default {
   vertical-align: middle;
 }
 
-.modal-container {
+.modal-contain {
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
