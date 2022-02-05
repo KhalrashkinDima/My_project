@@ -18,8 +18,9 @@ export default {
         });
         return BestPosts;
     },
-    GetMyPosts(state, uid) {
-        return state.posts.find(posts => posts.authorUid === uid);
+    GetMyPosts: state => id => {
+        return state.posts.filter(posts => posts.authorUid === id);
+        
     },
     IsLiked: state => id => {
         return state.posts.find(likes => posts.likes === id); 

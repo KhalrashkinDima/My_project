@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="mypost in MyPostList" :key="mypost.id">
+    <div v-for="mypost in posts" :key="mypost.id">
       <div
         class="
           container-fluid
@@ -51,7 +51,9 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      posts: [],
+    };
   },
   computed: {
     ...mapGetters({
@@ -67,13 +69,10 @@ export default {
       const User = this.$store.getters["users/ReturnUid"];
       return User;
     },
-    MyPostList() {
-      return this.GetMyPosts(User);
-    },
   },
-   mounted() {
-this.MyUid()
-   },
+  created() {
+    this.posts = this.GetMyPosts(this.MyUid);
+  },
   methods: {
     PostDelete(id) {
       const conf = confirm(
@@ -104,5 +103,13 @@ this.MyUid()
 .rate_image {
   width: 50px;
   height: auto;
+}
+.comment_form {
+  background: linear-gradient(#747677, #3f5062);
+  border-radius: 10px;
+}
+.comment_author {
+  border: 2px solid #3f5062;
+  border-radius: 5px;
 }
 </style>

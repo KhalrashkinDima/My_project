@@ -36,7 +36,6 @@ export default {
     deletePost(context, id) {
         const updates = {};
         updates['/posts/' + id] = null;
-        updates['/likes/' + data.id] = null;
         const db = getDatabase();
         return update(ref(db), updates);
     },

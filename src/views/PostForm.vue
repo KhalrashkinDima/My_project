@@ -36,7 +36,7 @@
         v-bind:postRedact="ThisId.id"
       />
       <div class="h5 text-center">Комментарии</div>
-      <div class="p-2" v-for="comment in CommentsList">
+      <div class="m-2" v-for="comment in CommentsList">
         <div class="comments">
           <div class="comment d-flex align-items-center">
             <div
@@ -45,9 +45,9 @@
               <div>Автор комментария</div>
               <div>{{ comment.authorName }}</div>
             </div>
-            <div class="col-8 comment-text ps-2 text-center align-items-center">
-              <div>Текст комментария</div>
-              <div>{{ comment.commentText }}</div>
+            <div class="col-8 comment-text text-center align-items-center">
+              <div class="font-weight-bold">Текст комментария</div>
+              <div class="p-1 m-4">{{ comment.commentText }}</div>
             </div>
           </div>
         </div>
@@ -144,6 +144,7 @@ export default {
         commentText: this.commentText,
         date: new Date().toString(),
         postId: this.ThisId.id,
+        id: this.$store.getters["comments/GetCommentId"],
       });
     },
   },
@@ -159,8 +160,6 @@ export default {
 }
 .comment_form {
   background: linear-gradient(#747677, #3f5062);
-}
-.comment_form {
   border-radius: 10px;
 }
 .comment_author {

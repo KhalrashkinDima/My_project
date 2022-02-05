@@ -1,56 +1,81 @@
 <template>
-  <div class="col-md-8 col-lg-8 container-fluid">
-    <div class="pt-2">
-      <h4 class="text-center">
-        Пьяный курсант львовской военной академии пошел в лес гулять и оказался
-        в Польше
-      </h4>
-      <div class="comments">
-        <div class="comment d-flex align-items-center" id="1">
-          <div class="col-2 text-center align-items-center m-2">
-            <img src="@/components/img/user-icon.png" class="user_icon" />
-            User
+  <div class="comments_form">
+    <div v-for="mycomment in comments" :key="mycomment.id">
+      <div class="container-fluid align-items-center pb-2 my_form mt-4">
+        <div class="d-flex justify-content-between self-items-center pt-2">
+          <div class="text-center my_author col-4">
+            {{ mycomment.authorName }}
           </div>
-          <div class="col-10 comment-text ps-2 text-center align-items-center">
-            Насколько я понимаю, в Гелинджике абсолютно противоположная
-            ситуация, люди боятся что государство начнет выкупать землю по
-            заниженным ценам.
+          <div class="text-center col-8 my_author">
+            {{ mycomment.commentText }}
           </div>
+        </div>
+        <div class="justify-content-around d-flex mt-1">
+          <button
+            class="btn btn-secondary"
+            @click="$router.push('/' + mycomment.postId)"
+          >
+            Перейти к посту
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      count: 0,
-      show: false,
+      comments: [],
     };
   },
-  methods: {
-    Rate(value) {
-      this.count = this.count + value;
+  computed: {
+    ...mapGetters({
+      GetMyComments: "comments/GetMyComments",
+    }),
+    AdminTrue() {
+      return this.$store.getters["users/isAdmin"];
+    },
+    AuthTrue() {
+      return this.$store.getters["users/isAuth"];
+    },
+    WhatYourName() {
+      return this.$store.getters["users/ReturnName"];
     },
   },
+  created() {
+    this.comments = this.GetMyComments(this.WhatYourName);
+  },
+  /*     doLoadPosts(force) {
+      this.$store.dispatch("posts/LoadPosts", { force });
+    }, */
+  /*   created() {
+    this.doLoadPosts(false);
+  }, */
 };
 </script>
+
 <style>
 .rate_button {
   height: 50px;
   width: auto;
   border: 0;
+  background-color: white;
 }
 .rate_image {
   width: 50px;
   height: auto;
 }
-.comments {
-  max-height: 80px;
+.my_form {
+  border: 2px solid #3f5062;
+  border-radius: 5px;
 }
-.user_icon {
-  max-height: 50px;
+.my_author {
+  border: 2px solid #3f5062;
+  border-radius: 5px;
+}
+.comments_form {
+  width: 100%;
 }
 </style>
-

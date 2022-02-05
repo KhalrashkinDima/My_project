@@ -6,4 +6,7 @@ export default {
     GetPostComments: state => id =>  {
         return state.comments.filter(comments => comments.postId === id);
     },
+    GetMyComments: state => authorName =>  {
+        return state.comments.filter(comments => comments.authorName === authorName);
+    },
 }  
