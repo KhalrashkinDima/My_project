@@ -23,7 +23,6 @@ export default {
         data.id = generateUUID();
         const db = getDatabase();
         set(ref(db, '/posts/' + data.id), data);
-        set(ref(db, '/likes/' + data.id), data.id);
     },
 
     updatePost(context, data) {

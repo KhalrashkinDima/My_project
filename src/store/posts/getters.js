@@ -20,9 +20,9 @@ export default {
     },
     GetMyPosts: state => id => {
         return state.posts.filter(posts => posts.authorUid === id);
-        
     },
-    IsLiked: state => id => {
-        return state.posts.find(posts => posts.id === id);
+    PostIsDead: state => id => {
+        console.log(state.posts.filter(posts => posts.id === id));
+        return state.posts.filter(posts => posts.id === id);
     },
 }

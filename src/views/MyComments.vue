@@ -19,7 +19,7 @@
         <div class="justify-content-around d-flex mt-1">
           <button
             class="btn btn-secondary"
-            @click="$router.push('/' + mycomment.postId)"
+            @click="checkPost(mycomment.postId)"
           >
             Перейти к посту
           </button>
@@ -39,6 +39,7 @@ export default {
   computed: {
     ...mapGetters({
       GetMyComments: "comments/GetMyComments",
+      PostIsDead: "posts/PostIsDead",
     }),
     AdminTrue() {
       return this.$store.getters["users/isAdmin"];
@@ -50,9 +51,20 @@ export default {
       return this.$store.getters["users/ReturnName"];
     },
   },
+  methods: {
+  checkPost(id) {
+    const PostIsDead = this.PostIsDead(id);
+    if (PostIsDead.length < 1) {
+      alert('Извините, пост удален');
+      return null;
+    }
+    this.$router.push("/" + id);
+  }
+  },
   created() {
     this.comments = this.GetMyComments(this.WhatYourName);
   },
+  
   /*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });
     }, */
