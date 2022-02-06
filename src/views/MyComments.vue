@@ -1,9 +1,15 @@
 <template>
   <div class="comments_form">
+        <div v-if="comments.length < 1" class="mt-4 text-center"><h4>У вас еще нет комментариев</h4>          <button
+            class="btn btn-secondary"
+            @click="$router.push('/')"
+          >
+            Выберите пост и оставьте свой комментарий
+          </button></div>
     <div v-for="mycomment in comments" :key="mycomment.id">
       <div class="container-fluid align-items-center pb-2 my_form mt-4">
-        <div class="d-flex justify-content-between self-items-center pt-2">
-          <div class="text-center my_author col-4">
+        <div class="d-flex justify-content-between self-items-center pt-2 align-items-center">
+          <div class="text-center my_author col-4 align-items-center">
             {{ mycomment.authorName }}
           </div>
           <div class="text-center col-8 my_author">

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div v-if="posts.length < 1" class="mt-4"><h4>У вас еще нет постов</h4>          <button
+            class="btn btn-secondary"
+            @click="$router.push('/AddNew')"
+          >
+            Напишите свой первый пост
+          </button></div>
     <div v-for="mypost in posts" :key="mypost.id">
       <div
         class="

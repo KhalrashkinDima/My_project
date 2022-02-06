@@ -31,27 +31,31 @@ export default {
     return {
       url: "",
       title: "",
-      count: "0",
+      count: 0,
       newsText: "",
       authorUid: "",
-      date:""
+      date: "",
     };
   },
   methods: {
     CreatePost() {
-      if (this.AuthTrue !== true) {
-        this.$router.push("/RegistrationForm");
-        return null;
+      if (this.AuthTrue === true) {
+        this.$store.dispatch("posts/CreatePost", {
+          title: this.title,
+          url: this.url,
+          count: 0,
+          newsText: this.newsText,
+          authorUid: this.$store.getters["users/ReturnUid"],
+          date: Date.now(),
+          likes: { uid: true },
+        });
+        alert("Новость создана");
+        this.$router.push("/");
+        return;
       }
-      this.$store.dispatch("posts/CreatePost", {
-        title: this.title,
-        url: this.url,
-        count: "0",
-        newsText: this.newsText,
-        authorUid: this.$store.getters["users/ReturnUid"],
-        date: new Date().toString(),
-      });
-      this.$router.push("/");
+      alert("Регистрация - наше всё!");
+      this.$router.push("/RegistrationForm");
+      return;
     },
   },
   computed: {

@@ -42,7 +42,7 @@ export default {
     IncreaseCount(context, id) {
         const updates = {};
         const SearchPost = context.state.posts.find(posts => posts.id === id);
-        const newCount = SearchPost.count++;
+        const newCount = SearchPost.count + 1;
         updates['/posts/' + id + '/count'] = newCount;
 
         const db = getDatabase();
@@ -51,7 +51,7 @@ export default {
     DecreaseCount(context, id) {
         const updates = {};
         const SearchPost = context.state.posts.find(posts => posts.id === id);
-        const newCount = SearchPost.count--;
+        const newCount = SearchPost.count - 1;
         updates['/posts/' + id + '/count'] = newCount;
 
         const db = getDatabase();

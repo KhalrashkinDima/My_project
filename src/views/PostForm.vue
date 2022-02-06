@@ -82,7 +82,6 @@ export default {
       GetPostById: "posts/GetPostById",
       ReturnName: "users/ReturnName",
       GetPostComments: "comments/GetPostComments",
-      IsLiked: "posts/IsLiked",
     }),
     ThisId() {
       return this.GetPostById(this.$route.params.id);
@@ -99,32 +98,47 @@ export default {
     CommentsList() {
       return this.GetPostComments(this.$route.params.id);
     },
-    IsLiked() {
-      return this.IsLiked(this.ThisId.authorUid);
+    MyUid() {
+      const User = this.$store.getters["users/ReturnUid"];
+      return User;
     },
   },
 
   methods: {
     Inc() {
-      if (this.AuthTrue !== true) {
-        alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
-        return null;
-      }
-      this.$store.dispatch("posts/IncreaseCount", this.$route.params.id);
-      this.$store.dispatch("posts/CreateLike", {
-        likeId: this.ThisId.id,
-        uid: this.$store.getters["users/ReturnUid"],
+      const wasLiked = Object.keys(this.ThisId.likes).forEach((element) => {
+        if (element == this.MyUid) {
+          alert("Вы уже оценивали новость");
+          this.$router.push("/");
+          return null;
+        } else if (this.AuthTrue !== true) {
+          alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
+          this.$router.push("/RegistrationForm");
+          return null;
+        }
+        this.$store.dispatch("posts/IncreaseCount", this.$route.params.id);
+        this.$store.dispatch("posts/CreateLike", {
+          likeId: this.ThisId.id,
+          uid: this.$store.getters["users/ReturnUid"],
+        });
       });
     },
     Dec() {
-      if (this.AuthTrue !== true) {
-        alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
-        return null;
-      }
-      this.$store.dispatch("posts/DecreaseCount", this.$route.params.id);
-      this.$store.dispatch("posts/CreateLike", {
-        likeId: this.ThisId.id,
-        uid: this.$store.getters["users/ReturnUid"],
+      const wasLiked = Object.keys(this.ThisId.likes).forEach((element) => {
+        if (element == this.MyUid) {
+          alert("Вы уже оценивали новость");
+          this.$router.push("/");
+          return null;
+        } else if (this.AuthTrue !== true) {
+          alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
+          this.$router.push("/RegistrationForm");
+          return null;
+        }
+        this.$store.dispatch("posts/DecreaseCount", this.$route.params.id);
+        this.$store.dispatch("posts/CreateLike", {
+          likeId: this.ThisId.id,
+          uid: this.$store.getters["users/ReturnUid"],
+        });
       });
     },
     CloseRedact() {

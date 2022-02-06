@@ -4,7 +4,7 @@ export default {
     GetPosts: state => {
         const posts = state.posts
         posts.sort((a, b) => {
-            return a.date - b.date;
+            return b.date - a.date;
         });
         return posts;
     },
@@ -23,6 +23,6 @@ export default {
         
     },
     IsLiked: state => id => {
-        return state.posts.find(likes => posts.likes === id); 
+        return state.posts.find(posts => posts.id === id);
     },
 }
