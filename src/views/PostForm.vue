@@ -106,39 +106,41 @@ export default {
 
   methods: {
     Inc() {
-      const wasLiked = Object.keys(this.ThisId.likes).forEach((element) => {
-        if (element == this.MyUid) {
-          alert("Вы уже оценивали новость");
-          this.$router.push("/");
-          return null;
-        } else if (this.AuthTrue !== true) {
-          alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
-          this.$router.push("/RegistrationForm");
-          return null;
-        }
-        this.$store.dispatch("posts/IncreaseCount", this.$route.params.id);
-        this.$store.dispatch("posts/CreateLike", {
-          likeId: this.ThisId.id,
-          uid: this.$store.getters["users/ReturnUid"],
-        });
+      const wasLiked = Object.keys(this.ThisId.likes).filter(
+        (element) => element == this.MyUid
+      );
+      console.log(wasLiked);
+      if (wasLiked.length > 0) {
+        alert("Вы уже оценивали новость");
+        return null;
+      } else if (this.AuthTrue !== true) {
+        alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
+        this.$router.push("/RegistrationForm");
+        return null;
+      }
+      this.$store.dispatch("posts/IncreaseCount", this.$route.params.id);
+      this.$store.dispatch("posts/CreateLike", {
+        likeId: this.ThisId.id,
+        uid: this.$store.getters["users/ReturnUid"],
       });
     },
     Dec() {
-      const wasLiked = Object.keys(this.ThisId.likes).forEach((element) => {
-        if (element == this.MyUid) {
-          alert("Вы уже оценивали новость");
-          this.$router.push("/");
-          return null;
-        } else if (this.AuthTrue !== true) {
-          alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
-          this.$router.push("/RegistrationForm");
-          return null;
-        }
-        this.$store.dispatch("posts/DecreaseCount", this.$route.params.id);
-        this.$store.dispatch("posts/CreateLike", {
-          likeId: this.ThisId.id,
-          uid: this.$store.getters["users/ReturnUid"],
-        });
+      const wasLiked = Object.keys(this.ThisId.likes).filter(
+        (element) => element == this.MyUid
+      );
+      console.log(wasLiked);
+      if (wasLiked.length > 0) {
+        alert("Вы уже оценивали новость");
+        return null;
+      } else if (this.AuthTrue !== true) {
+        alert("Зарегистрируйтесь чтобы иметь возможность оценивать новости!");
+        this.$router.push("/RegistrationForm");
+        return null;
+      }
+      this.$store.dispatch("posts/DecreaseCount", this.$route.params.id);
+      this.$store.dispatch("posts/CreateLike", {
+        likeId: this.ThisId.id,
+        uid: this.$store.getters["users/ReturnUid"],
       });
     },
     CloseRedact() {
