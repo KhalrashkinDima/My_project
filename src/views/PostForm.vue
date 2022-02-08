@@ -6,7 +6,7 @@
           {{ ThisId.title }}
         </h4>
         <span>
-          <img :src="ThisId.url" class="d-block adv_pic img-fluid" />
+          <img :src="ThisId.url" class="d-block img-fluid" />
         </span>
         <div>
           {{ ThisId.newsText }}

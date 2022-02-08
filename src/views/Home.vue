@@ -14,7 +14,7 @@
             {{ post.title }}
           </h4>
           <div class="text-center h5"></div>
-          <img :src="post.url" class="d-block adv_pic img-fluid" />
+          <img :src="post.url" class="d-block img-fluid" />
         </div>
         <div class="d-flex justify-content-between">
           <div class="text-center h5 pt-3">

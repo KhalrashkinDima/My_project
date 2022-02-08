@@ -1,18 +1,17 @@
 <template>
-    <div class="d-none d-sm-none d-md-block col-md-2 col-lg-2 container-fluid">
-      
-          <div class="text-center">Рекламный заголовок 1</div>
-          <img src="@/components/img/l_adv_1.jpeg" class="d-block adv_pic img-fluid" />
-        
-      
-          <div class="text-center">Рекламный заголовок 2</div>
-          <img src="@/components/img/l_adv_2.jpeg" class="d-block adv_pic img-fluid" />
-         
-        
-          <div class="text-center">Рекламный заголовок 3</div>
-          <img src="@/components/img/l_adv_3.jpeg" class="d-block adv_pic img-fluid" />
-           
-    </div>
+  <div class="d-none d-sm-none d-md-block col-md-2 col-lg-2 container-fluid">
+    <a
+      href="https://carsharing-73693.web.app/"
+      class="text-decoration-none kram_car"
+    >
+      <div class="text-center text-muted">Лучший сайт по аренде авто</div>
+      <img
+        src="@/components/img/kram_car.jpg"
+        class="d-block adv_pic img-fluid"
+      />
+    </a>
+
+  </div>
 </template>
 
 <script>
@@ -31,6 +30,7 @@
 }
 .adv_pic {
   width: auto;
-  
+  max-height: 100px;
 }
+
 </style>

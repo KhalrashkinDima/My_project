@@ -1,33 +1,41 @@
 <template>
-    <div class="col-md-2 col-lg-2 container-fluid">
-      
-          <div class="text-center">Рекламный заголовок 1</div>
-          <img src="@/components/img/r_adv_1.jpg" class="d-block adv_pic img-fluid" />
-      
-          <div class="text-center">Рекламный заголовок 2</div>
-          <img src="@/components/img/r_adv_2.jpg" class="d-block adv_pic img-fluid" />
-     
-          <div class="text-center">Рекламный заголовок 3</div>
-          <img src="@/components/img/r_adv_3.jpg" class="d-block adv_pic img-fluid" />
-     
-    </div>
+  <div class="col-md-2 col-lg-2 container-fluid">
+    <a href="https://hotels-1e8d2.web.app/" class="text-decoration-none adv pt-2">
+      <div class="text-center text-muted">
+        Бронирование отелей по всему миру
+      </div>
+      <img
+        src="@/components/img/peter_polyak.png"
+        class="d-block adv_pic img-fluid h-30 pb-5"
+      />
+    </a>
+
+    <a href="https://vue-project-movies.web.app/" class="text-decoration-none adv pt-2">
+      <div class="text-center text-muted">
+        Следующий шагом человечества станет фильм
+      </div>
+      <img
+        src="@/components/img/korsun.jpg"
+        class="d-block adv_pic img-fluid h-30 pb-5"
+      />
+    </a>
+  </div>
 </template>
 
 <script>
 </script>
 
 <style>
-
 .user_icon {
   width: auto;
   height: 200px;
 }
-.right_adv {
+.adv {
   text-decoration: none;
   color: black;
+  height: 200px;
 }
 .adv_pic {
   width: auto;
-  
 }
 </style>
