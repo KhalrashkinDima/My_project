@@ -4,12 +4,13 @@
       <form class="text-center login">
         <div class="text-center">
           <div class="mt-4 text-center h5">Регистрационная форма</div>
-          <my-input label="Введите логин" v-model="name"/>
-          <my-input label="Введите email" v-model="email"/>
-          <my-input label="Введите пароль" v-model="password"/>
-          <my-input label="Повторите пароль" v-model="password2"/>
-          <gender-choose v-model="gender"/>
-          <choose-from-many v-model="country"/>
+          <my-input label="Введите логин" v-model="name" />
+          <my-input label="Введите email" v-model="email" />
+          <my-input label="Введите пароль" v-model="password" />
+          <my-input label="Повторите пароль" v-model="password2" />
+          <gender-choose v-model="gender" />
+          <choose-from-many             v-model="value"
+             v-bind:options="countries" />
         </div>
         <button class="mt-4 btn btn-primary mb-2" @click="Registration">
           Зарегистрироваться
@@ -22,32 +23,39 @@
 <script>
 import MyInput from "../components/ui/MyInput.vue";
 export default {
-    components: { MyInput },
+  components: { MyInput },
   data() {
     return {
-      name:"",
-      email:"",
-      password:"",
-      password2:"",
-      gender:"",
-      country:"",
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
+      gender: "",
+      countries: [
+        { text: "Украина", value: "A", selected: true },
+        { text: "Россия", value: "B" },
+        { text: "Беларусь", value: "C" },
+        { text: "Казахстан", value: "D" },
+      ],
+      value: "",
     };
   },
   methods: {
-      Registration: function () {
-        if (this.password !== this.password2) {
-          alert("Пароли не совпадают");
-        };
-        let data = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-        }
-        this.$store.dispatch('users/sign', data)
-       .then(() => this.$router.push('/'))
-       .catch(err => console.log(err))
+    Registration: function () {
+      if (this.password !== this.password2) {
+        alert("Пароли не совпадают");
       }
-    }
+      let data = {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      };
+      this.$store
+        .dispatch("users/sign", data)
+        .then(() => this.$router.push("/"))
+        .catch((err) => console.log(err));
+    },
+  },
 };
 </script>
 

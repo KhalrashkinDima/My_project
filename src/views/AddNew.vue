@@ -7,6 +7,12 @@
 
           <my-input label="Заголовок поста" v-model="title" />
           <my-input label="Введите ссылку на изображение" v-model="url" />
+          <choose-from-many
+            v-model="value"
+             v-bind:options="categories"
+            question="Выберите категорию новости :"
+            class="pt-2"
+          />
           <div class="pt-2">Введите основной текст</div>
           <textarea
             class="form-control mt-3"
@@ -17,7 +23,7 @@
             placeholder="Текст поста"
           ></textarea>
         </div>
-        <button class="mt-4 btn btn-primary" @click.prevent="CreatePost">
+        <button class="mt-4 btn btn-primary" @click="CreatePost">
           Опубликовать пост
         </button>
       </form>
@@ -26,7 +32,9 @@
 </template>
 
 <script>
+import MyInput from "../components/ui/MyInput.vue";
 export default {
+  components: { MyInput },
   data() {
     return {
       url: "",
@@ -35,6 +43,13 @@ export default {
       newsText: "",
       authorUid: "",
       date: "",
+      categories: [
+        { text: "Политика", value: "Politics" },
+        { text: "Юмор", value: "Humor" },
+        { text: "Спорт", value: "Sport" },
+        { text: "Наука", value: "Science" },
+      ],
+      value: "",
     };
   },
   methods: {
@@ -48,6 +63,7 @@ export default {
           authorUid: this.$store.getters["users/ReturnUid"],
           date: Date.now(),
           likes: { uid: true },
+          category: this.value,
         });
         alert("Новость создана");
         this.$router.push("/");
