@@ -17,10 +17,10 @@
           <img :src="post.url" class="d-block img-fluid" />
         </div>
         <div class="d-flex justify-content-between p-3">
-          <div class="text-center h5 pt-3 col-8">
+          <div class="text-center h5 pt-3">
             Рейтинг новости: {{ post.count }}
           </div>
-          <div class="col-4 pt-2">
+          <div class="pt-2">
            <div class="text-center"> {{ PostDate(post.date) }} </div>
            <div class="text-center"> {{ post.category }} </div>
           </div>
@@ -52,15 +52,11 @@
 </template>
 <script>
 import moment from "moment";
-import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
   computed: {
-    ...mapGetters({
-      AuthorName: "users/AuthorName",
-    }),
     postList() {
       return this.$store.getters["posts/GetPosts"];
     },

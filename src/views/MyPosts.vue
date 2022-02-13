@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-if="posts.length < 1" class="mt-4"><h4>У вас еще нет постов</h4>          <button
-            class="btn btn-secondary"
-            @click="$router.push('/AddNew')"
-          >
-            Напишите свой первый пост
-          </button></div>
+    <div v-if="posts.length < 1" class="mt-4">
+      <h4>У вас еще нет постов</h4>
+      <button class="btn btn-secondary" @click="$router.push('/AddNew')">
+        Напишите свой первый пост
+      </button>
+    </div>
     <div v-for="mypost in posts" :key="mypost.id">
       <div
         class="
@@ -22,11 +22,14 @@
           <div class="text-center h5"></div>
           <img :src="mypost.url" class="d-block img-fluid" />
         </div>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between p-3">
           <div class="text-center h5 pt-3">
             Рейтинг новости: {{ mypost.count }}
           </div>
-          <!--  <div class="text-center pt-3">Дата поста: {{ post.date }}</div> -->
+          <div class="pt-2">
+            <div class="text-center">{{ PostDate(mypost.date) }}</div>
+            <div class="text-center">{{ mypost.category }}</div>
+          </div>
         </div>
         <div class="justify-content-around d-flex mt-4">
           <button
@@ -55,6 +58,7 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import moment from "moment";
 export default {
   data() {
     return {
@@ -88,6 +92,9 @@ export default {
         this.$store.dispatch("posts/deletePost", id);
       }
       return null;
+    },
+    PostDate(date) {
+      return moment(date).format("DD MM YYYY, h:mm:ss");
     },
     /*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });
