@@ -16,11 +16,14 @@
           <div class="text-center h5"></div>
           <img :src="post.url" class="d-block img-fluid" />
         </div>
-        <div class="d-flex justify-content-between">
-          <div class="text-center h5 pt-3">
+        <div class="d-flex justify-content-between p-3">
+          <div class="text-center h5 pt-3 col-8">
             Рейтинг новости: {{ post.count }}
           </div>
-          <!--  <div class="text-center pt-3">Дата поста: {{ post.date }}</div> -->
+          <div class="col-4 pt-2">
+           <div class="text-center"> {{ PostDate(post.date) }} </div>
+           <div class="text-center"> {{ post.category }} </div>
+          </div>
         </div>
         <div class="justify-content-around d-flex mt-4">
           <button
@@ -48,11 +51,16 @@
   </div>
 </template>
 <script>
+import moment from "moment";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {};
   },
   computed: {
+    ...mapGetters({
+      AuthorName: "users/AuthorName",
+    }),
     postList() {
       return this.$store.getters["posts/GetPosts"];
     },
@@ -72,6 +80,9 @@ export default {
         this.$store.dispatch("posts/deletePost", id);
       }
       return null;
+    },
+    PostDate(date) {
+      return moment(date).format("DD MM YYYY, h:mm:ss");
     },
     /*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });

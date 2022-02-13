@@ -13,7 +13,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import moment from 'moment'
 
 const firebaseConfig = {
     apiKey: "AIzaSyB9mSsn4FE8vaTl0w-5-kKAnJjOVBFFfLQ",
@@ -62,6 +62,7 @@ onAuthStateChanged(auth, (users) => {
 const app = createApp(App);
 app.use(router);
 app.use(store);
+app.use(moment);
 app.component('ModalProfile', ModalProfile)
 app.component('MyInput', MyInput)
 app.component('GenderChoose', GenderChoose)

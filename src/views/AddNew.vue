@@ -44,10 +44,10 @@ export default {
       authorUid: "",
       date: "",
       categories: [
-        { text: "Политика", value: "Politics" },
-        { text: "Юмор", value: "Humor" },
-        { text: "Спорт", value: "Sport" },
-        { text: "Наука", value: "Science" },
+        { text: "Политика", value: "Политика" },
+        { text: "Юмор", value: "Юмор" },
+        { text: "Спорт", value: "Спорт" },
+        { text: "Наука", value: "Наука" },
       ],
       value: "",
     };

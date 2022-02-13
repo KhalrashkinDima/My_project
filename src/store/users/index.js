@@ -25,6 +25,10 @@ export default {
     ReturnUid(state) {
       return state.uid;
     },
+    AuthorName(state, uid) {
+      const author = state.users.find(users => users.uid === uid);
+      return author.name;
+    }
   },
   mutations: {
     setUser(state, data) {
