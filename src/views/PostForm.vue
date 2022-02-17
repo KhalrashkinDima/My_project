@@ -109,7 +109,6 @@ export default {
       const wasLiked = Object.keys(this.ThisId.likes).filter(
         (element) => element == this.MyUid
       );
-      console.log(wasLiked);
       if (wasLiked.length > 0) {
         alert("Вы уже оценивали новость");
         return null;
@@ -128,7 +127,6 @@ export default {
       const wasLiked = Object.keys(this.ThisId.likes).filter(
         (element) => element == this.MyUid
       );
-      console.log(wasLiked);
       if (wasLiked.length > 0) {
         alert("Вы уже оценивали новость");
         return null;

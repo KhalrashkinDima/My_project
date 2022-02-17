@@ -1,6 +1,6 @@
 <template>
-  <div class="col-md-8 col-lg-8 container-fluid mt-2 text-light">
-    <div class="col-6 registration p-2">
+  <div class="col-12 col-lg-8 container-fluid mt-2 text-light">
+    <div class=" col-12 col-md-6 registration p-2">
       <form class="text-center login">
         <div class="text-center">
           <div class="mt-4 text-center h5">Регистрационная форма</div>

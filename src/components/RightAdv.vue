@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-2 col-lg-2 container-fluid">
+  <div class="d-none d-sm-none d-md-block col-md-2 col-lg-2 container-fluid">
     <a href="https://hotels-1e8d2.web.app/" class="text-decoration-none adv pt-2">
       <div class="text-center text-muted">
         Бронирование отелей по всему миру

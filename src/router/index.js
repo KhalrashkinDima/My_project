@@ -41,6 +41,11 @@ const routes = [
     path: '/:id',
     component: () => import('../views/PostForm.vue')
   },
+    {
+    path: '/PostsByCategories',
+    name: 'PostsByCategories',
+    component: () => import('../views/PostsByCategories.vue')
+  },
 ];
 
 const router = createRouter({

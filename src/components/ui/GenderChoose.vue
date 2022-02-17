@@ -1,8 +1,8 @@
 <template>
   <fieldset class="form-group mt-2">
     <div class="row">
-      <div class="col-form-label col-sm-5 pt-0">{{ mainquestion }}</div>
-      <div class="col-sm-7">
+      <div class="col-form-label col-5 pt-0">{{ mainquestion }}</div>
+      <div class="col-7">
         <div class="form-check">
           <input
             class="form-check-input"

@@ -25,4 +25,7 @@ export default {
         console.log(state.posts.filter(posts => posts.id === id));
         return state.posts.filter(posts => posts.id === id);
     },
+    GetPostsByCategory: state => category => {
+        return state.posts.filter(posts => posts.category === category);
+    },
 }
