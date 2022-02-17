@@ -1,19 +1,43 @@
 <template>
   <div>
-  <div class="d-flex justify-content-around">
-    <div class="text-center col-6">
+    <div class="d-flex justify-content-between">
+      <div class="text-center col-7">
         <div class="text-center pt-2 h5">Категории</div>
-        <button @click="postsByCategory('Политика')"  class="btn btn-secondary m-2"> Политика</button>
-        <button @click="postsByCategory('Спорт')" class="btn btn-secondary m-2"> Спорт</button>
-        <button @click="postsByCategory('Юмор')"  class="btn btn-secondary m-2"> Юмор</button>
-        <button @click="postsByCategory('Наука')" class="btn btn-secondary m-2"> Наука</button>
+        <div class="row justify-content-around category_border">
+          <button
+            @click="postsByCategory('Политика')"
+            class="btn btn-secondary col-10 col-md-6 col-lg-2 m-1"
+          >
+            Политика
+          </button>
+          <button
+            @click="postsByCategory('Спорт')"
+            class="btn btn-secondary col-10 col-md-6 col-lg-2 m-1"
+          >
+            Спорт
+          </button>
+          <button
+            @click="postsByCategory('Юмор')"
+            class="btn btn-secondary col-10 col-md-6 col-lg-2 m-1"
+          >
+            Юмор
+          </button>
+          <button
+            @click="postsByCategory('Наука')"
+            class="btn btn-secondary col-10 col-md-6 col-lg-2 m-1"
+          >
+            Наука
+          </button>
+        </div>
+      </div>
+      <div class="text-center col-4 align-self-center category_border">
+        <div class="text-center pt-2 h5">Сортировать</div>
+        <div class="row justify-content-around">
+          <button @click="Newest()" class="btn btn-secondary col-10 col-md-5 m-1">Новые</button>
+          <button @click="Best()" class="btn btn-secondary col-10 col-md-5 m-1">Лучшие</button>
+        </div>
+      </div>
     </div>
-    <div class="text-center col-6 align-self-center">
-       <div class="text-center pt-2 h5">Сортировать</div>
-        <button @click="Newest()" class="btn btn-secondary m-2 d-block"> Новые</button>
-       <button @click="Best()" class="btn btn-secondary m-2 d-block"> Лучшие</button>
-    </div>
-  </div>
     <div v-for="post in postСategories" :key="post.id">
       <div
         class="
@@ -35,8 +59,8 @@
             Рейтинг новости: {{ post.count }}
           </div>
           <div class="pt-2">
-           <div class="text-center"> {{ PostDate(post.date) }} </div>
-           <div class="text-center"> {{ post.category }} </div>
+            <div class="text-center">{{ PostDate(post.date) }}</div>
+            <div class="text-center">{{ post.category }}</div>
           </div>
         </div>
         <div class="justify-content-around d-flex mt-4">
@@ -65,13 +89,12 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-        postСategories: [],
+      postСategories: [],
     };
   },
   computed: {
-          ...mapGetters({
-              GetPostsByCategory : "posts/GetPostsByCategory",
-     
+    ...mapGetters({
+      GetPostsByCategory: "posts/GetPostsByCategory",
     }),
     AdminTrue() {
       return this.$store.getters["users/isAdmin"];
@@ -93,24 +116,23 @@ export default {
     PostDate(date) {
       return moment(date).format("DD MM YYYY, h:mm:ss");
     },
-        postsByCategory(val) {
-          console.log(val);
+    postsByCategory(val) {
       this.postСategories = this.GetPostsByCategory(val);
     },
     Newest() {
-        const posts = this.postСategories
-        posts.sort((a, b) => {
-            return b.date - a.date;
-        });
-        return posts;
+      const posts = this.postСategories;
+      posts.sort((a, b) => {
+        return b.date - a.date;
+      });
+      return posts;
     },
     Best() {
-        const posts = this.postСategories
-        posts.sort((x, y) => {
-            return y.count - x.count;
-        });
-        return posts;
-    }
+      const posts = this.postСategories;
+      posts.sort((x, y) => {
+        return y.count - x.count;
+      });
+      return posts;
+    },
     /*     doLoadPosts(force) {
       this.$store.dispatch("posts/LoadPosts", { force });
     }, */
@@ -126,10 +148,11 @@ export default {
   height: 50px;
   width: auto;
   border: 0;
-  background-color: white;
+  background-color: #ffffff;
 }
 .rate_image {
   width: 50px;
   height: auto;
 }
+
 </style>
